@@ -1,6 +1,88 @@
 from tensorflow.keras.models import load_model
 import numpy as np
 
+def accuracy05(y_true, y_pred):
+    tp = tf.reduce_sum(tf.cast(tf.math.logical_and(y_true>0.5,y_pred>0.5), tf.float32))
+    tn = tf.reduce_sum(tf.cast(tf.math.logical_and(tf.math.logical_not(y_true>0.5),tf.math.logical_not(y_pred>0.5)), tf.float32))
+
+    return (tp+tn)/tf.cast(tf.size(y_true), tf.float32)
+    
+
+def precision05(y_true, y_pred):
+    tp = tf.reduce_sum(tf.cast(tf.math.logical_and(y_true>0.5,y_pred>0.5), tf.float32))
+    total_pred = tf.reduce_sum(tf.cast(y_pred>0.5, tf.float32))
+    
+    return tp/(total_pred+K.epsilon())
+
+
+def recall05(y_true, y_pred):
+    tp = tf.reduce_sum(tf.cast(tf.math.logical_and(y_true>0.5,y_pred>0.5), tf.float32))
+    total_true = tf.reduce_sum(tf.cast(y_true>0.5, tf.float32))
+    
+    return tp/(total_true+K.epsilon())
+
+
+def accuracy1(y_true, y_pred):
+    tp = tf.reduce_sum(tf.cast(tf.math.logical_and(y_true>1,y_pred>1), tf.float32))
+    tn = tf.reduce_sum(tf.cast(tf.math.logical_and(tf.math.logical_not(y_true>1),tf.math.logical_not(y_pred>1)), tf.float32))
+
+    return (tp+tn)/tf.cast(tf.size(y_true), tf.float32)
+    
+
+def precision1(y_true, y_pred):
+    tp = tf.reduce_sum(tf.cast(tf.math.logical_and(y_true>1,y_pred>1), tf.float32))
+    total_pred = tf.reduce_sum(tf.cast(y_pred>1, tf.float32))
+    
+    return tp/(total_pred+K.epsilon())
+
+
+def recall1(y_true, y_pred):
+    tp = tf.reduce_sum(tf.cast(tf.math.logical_and(y_true>1,y_pred>1), tf.float32))
+    total_true = tf.reduce_sum(tf.cast(y_true>1, tf.float32))
+    
+    return tp/(total_true+K.epsilon())
+
+def accuracy5(y_true, y_pred):
+    tp = tf.reduce_sum(tf.cast(tf.math.logical_and(y_true>5,y_pred>5), tf.float32))
+    tn = tf.reduce_sum(tf.cast(tf.math.logical_and(tf.math.logical_not(y_true>5),tf.math.logical_not(y_pred>5)), tf.float32))
+
+    return (tp+tn)/tf.cast(tf.size(y_true), tf.float32)
+    
+
+def precision5(y_true, y_pred):
+    tp = tf.reduce_sum(tf.cast(tf.math.logical_and(y_true>5,y_pred>5), tf.float32))
+    total_pred = tf.reduce_sum(tf.cast(y_pred>5, tf.float32))
+    
+    return tp/(total_pred+K.epsilon())
+
+
+def recall5(y_true, y_pred):
+    tp = tf.reduce_sum(tf.cast(tf.math.logical_and(y_true>5,y_pred>5), tf.float32))
+    total_true = tf.reduce_sum(tf.cast(y_true>5, tf.float32))
+    
+    return tp/(total_true+K.epsilon())
+
+
+def accuracy10(y_true, y_pred):
+    tp = tf.reduce_sum(tf.cast(tf.math.logical_and(y_true>10,y_pred>10), tf.float32))
+    tn = tf.reduce_sum(tf.cast(tf.math.logical_and(tf.math.logical_not(y_true>10),tf.math.logical_not(y_pred>10)), tf.float32))
+
+    return (tp+tn)/tf.cast(tf.size(y_true), tf.float32)
+    
+
+def precision10(y_true, y_pred):
+    tp = tf.reduce_sum(tf.cast(tf.math.logical_and(y_true>10,y_pred>10), tf.float32))
+    total_pred = tf.reduce_sum(tf.cast(y_pred>10, tf.float32))
+
+    return tp/(total_pred+K.epsilon())
+
+
+def recall10(y_true, y_pred):
+    tp = tf.reduce_sum(tf.cast(tf.math.logical_and(y_true>10,y_pred>10), tf.float32))
+    total_true = tf.reduce_sum(tf.cast(y_true>10, tf.float32))
+    
+    return tp/(total_true+K.epsilon())
+
 def get_band_data3(loc, dates, b, mean=None, std=None):
     y = np.concatenate([np.load(f"/data/GPM_HIM8/exp_paper/Y_{loc}_{d}.npy") for d in dates], axis=0)
     y = np.clip(y,0,30)
