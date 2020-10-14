@@ -27,8 +27,7 @@ def stat_generator(bands):
                     obs = y_test[:,:,:]
                     mse = np.mean(np.square(obs-pred))
 
-                    for t in [0.2,1.0,5.0]:
-
+                    for t in [0.1,0.2,0.5,1.0,2.0,5.0]:
                         pred = yhat[:,:,:,0]>t
                         obs = y_test[:,:,:]>t
                         prec = (obs*pred).sum()/pred.sum()
